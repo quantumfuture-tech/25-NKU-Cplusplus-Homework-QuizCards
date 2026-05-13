@@ -61,8 +61,9 @@ bool CardManager::load() {
 }
 
 bool CardManager::scanDirectory(const std::filesystem::path& dirPath, int parentNodeIdx) {
+    
     if (!std::filesystem::is_directory(dirPath)) return false;
-
+    std::cout << dirPath.string() << std::endl;
     // 首先读取该目录下的 .tree 文件（如果存在），获取节点属性（主要是激活状态）
     std::filesystem::path treeFile = dirPath / ".tree";
     bool hasTreeFile = std::filesystem::exists(treeFile);
@@ -82,6 +83,8 @@ bool CardManager::scanDirectory(const std::filesystem::path& dirPath, int parent
 
     // 遍历目录内容
     for (const auto& entry : std::filesystem::directory_iterator(dirPath)) {
+        
+        std::string filename = entry.path().filename().string();
         if (entry.is_directory()) {
             // 子文件夹
             std::string folderName = entry.path().filename().string();
@@ -95,8 +98,8 @@ bool CardManager::scanDirectory(const std::filesystem::path& dirPath, int parent
 
             // 递归扫描子目录
             scanDirectory(entry.path(), folderIdx);
-        } else if (entry.is_regular_file() && entry.path().extension() == ".unit.json") {
-            // 单元文件
+        } else if (filename.size() >= 10 && filename.ends_with(".unit.json")) {
+            std::cout << "load: " << entry.path() << std::endl;
             loadUnitFile(entry.path(), parentNodeIdx);
         }
     }
@@ -382,7 +385,9 @@ void CardManager::printTree(int nodeIdx, int depth) const {
     const auto& node = m_nodes[nodeIdx];
     std::string indent(depth * 2, ' ');
     std::cout << indent << (node.type == TreeNodeType::Folder ? "[文件夹] " : "[单元] ")
-              << node.name << " (激活:" << (node.active ? "是" : "否") << ")" << std::endl;
+              << node.name << " (激活:" << (node.active ? "是" : "否") << ")"
+              << "[" << nodeIdx << "]" 
+              << std::endl;
     if (node.type == TreeNodeType::Folder) {
         for (int child : node.childrenIndices) {
             printTree(child, depth + 1);
@@ -392,7 +397,7 @@ void CardManager::printTree(int nodeIdx, int depth) const {
         for (int cid : node.cardIds) {
             const Card* c = getCardById(cid);
             if (c) {
-                std::cout << indent << "    [" << cid << "] " << c->question.substr(0, 30) << " ... (激活:" << (c->active ? "是" : "否") << ")" << std::endl;
+                std::cout << indent << "    [" << cid << "] " << c->question.substr(0, 30) << ":" << c->answer.substr(0, 30) << " (激活:" << (c->active ? "是" : "否") << ")" << std::endl;
             }
         }
     }
