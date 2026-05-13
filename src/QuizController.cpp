@@ -31,27 +31,26 @@ bool QuizSession::start() {
 }
 
 void QuizSession::setupRandomGroups() {
+    std::cout << "洗牌中…" << std::endl;
     // 打乱卡片顺序
     std::vector<int> shuffled = m_config.sourceCardIds;
     unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
     std::shuffle(shuffled.begin(), shuffled.end(), std::default_random_engine(seed));
 
-    // 分组
+    // 按照breakPoint分组
     m_groups.clear();
     size_t total = shuffled.size();
-    size_t groupSize = m_config.groupSize;
-    if (groupSize <= 0) groupSize = 5;
-    for (size_t i = 0; i < total; i += groupSize) {
-        size_t end = std::min(i + groupSize, total);
-        std::vector<int> group(shuffled.begin() + i, shuffled.begin() + end);
+    std::cout << "断点设置：" << std::endl;
+    for (auto bpt : m_config.breakPoint) {
+        static int start = 0;
+        //此函数左闭右开
+        std::vector<int> group(shuffled.begin() + start, shuffled.begin() + bpt);
         m_groups.push_back(group);
+        start = bpt;
+        std::cout << bpt << " ";
     }
-    // 如果配置的轮数大于实际分组数，截断
-    if (m_config.totalRounds > 0 && static_cast<size_t>(m_config.totalRounds) < m_groups.size()) {
-        m_groups.resize(m_config.totalRounds);
-    } else if (m_config.totalRounds > 0 && static_cast<size_t>(m_config.totalRounds) > m_groups.size()) {
-        // 重复使用剩余卡片？简化：只使用实际分组数
-    }
+    std::cout << std::endl;
+    
 }
 
 void QuizSession::setupMasteryFirstRound() {

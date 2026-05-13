@@ -12,10 +12,12 @@ enum class QuizMode { RandomGroup, MasteryRecursive };
 
 struct QuizConfig {
     QuizMode mode = QuizMode::RandomGroup;
-    int groupSize = 5;             // 每组卡片数量（模式一）
-    int totalRounds = 3;           // 总轮数（模式一）
-    int masteryRequired = 2;       // 达标所需连续正确次数（模式二）
-    std::vector<int> sourceCardIds; // 要抽查的卡片ID列表（从题库或抽查筐获取）
+    // 每一轮的断点（该轮末索引+1）（模式一）
+    std::vector<int> breakPoint;   
+    // 达标所需连续正确次数（模式二）
+    int masteryRequired = 2;       
+    // 要抽查的卡片ID列表（从题库或抽查筐获取）
+    std::vector<int> sourceCardIds; 
 };
 
 // 一个进行中的抽查会话

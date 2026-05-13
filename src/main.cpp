@@ -37,11 +37,73 @@ void runQuiz(CardManager& cardMgr, StatisticsManager& statMgr) {
     config.sourceCardIds = activeCards;
     if (modeChoice == 1) {
         config.mode = QuizMode::RandomGroup;
-        std::cout << "每组卡片数量 (默认5): ";
-        std::cin >> config.groupSize;
-        std::cout << "总轮数 (默认3): ";
-        std::cin >> config.totalRounds;
+        std::cout << "设置分组方式：" << std::endl
+                  << "1-设置每组卡片数量，轮数自动确定，最后一轮为余数" << std::endl
+                  << "2-设置总轮数，卡片数量自动确定" << std::endl
+                  << "3-设置百分比，会在相应百分数处分组" << std::endl;
+        auto getMethod = [](QuizConfig& cfg) {
+            int dividingMethod;
+            std::cin >> dividingMethod;
+            std::cin.ignore();
+            int bpt = 0;
+            int groupSize;
+            int totalSize = static_cast<int> (cfg.sourceCardIds.size());
+            switch (dividingMethod) {
+                case 1:
+                std::cout << "每组卡片数量：" << std::endl;
+                std::cin >> groupSize;
+                std::cin.ignore();
+                if (groupSize < 1 || groupSize > totalSize) {
+                    std::cout << "❌输入的卡片数量不在范围内" << std::endl;
+                }
+                bpt = groupSize;
+                while (bpt <= totalSize) {
+                    cfg.breakPoint.push_back(bpt);
+                    bpt += groupSize;
+                }
+                break;
+                case 2:
+                std::cout << "总轮数：" << std::endl;
+                int totalRounds;
+                std::cin >> totalRounds;
+                std::cin.ignore();
+                if (totalRounds > totalSize){
+                    std::cout << "❌轮数不得超过题数！" << std::endl;
+                    return false;
+                }
+                groupSize = static_cast<int>(totalSize / totalRounds + 1);
+                bpt = groupSize;
+                while (bpt <= totalSize) {
+                    cfg.breakPoint.push_back(bpt);
+                    bpt += groupSize;
+                }
+                break;
+                case 3:
+                double percentage;
+                std::cin >> percentage;
         std::cin.ignore();
+                if(percentage * totalSize / 100 < 1 || percentage > 100) {
+                    std::cout << "❌无法设置每组正确的卡片数量" << std::endl;
+                    return false;
+                }
+                for (double p = percentage; p<=100; p += percentage) {
+                    bpt = std::ceil (percentage * totalSize / 100);
+                    cfg.breakPoint.push_back(bpt);
+                }
+                break;
+                default:
+                std::cout << "❌请输入正确分组方式序数";
+                return false;
+            }
+            if (cfg.breakPoint.back() != totalSize) {
+                cfg.breakPoint.push_back(totalSize);
+            }
+            std::cout << "✔抽查设置成功" << std::endl;
+            return true;
+        };
+        while (!getMethod(config)) {
+            std::cout << "❌抽查设置失败" << std::endl;
+        }
     } else {
         config.mode = QuizMode::MasteryRecursive;
         std::cout << "达标所需连续正确次数 (默认2): ";
