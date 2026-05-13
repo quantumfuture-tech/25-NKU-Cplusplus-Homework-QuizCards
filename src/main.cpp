@@ -12,7 +12,7 @@ void printCards(const std::vector<int>& cardIds, CardManager& cardMgr) {
     for (int cid : cardIds) {
         const Card* c = cardMgr.getCardById(cid);
         if (c) {
-            std::cout << "  [" << cid << "] " << c->question.substr(0, 40) << " (激活:" << (c->active ? "是" : "否") << ")" << std::endl;
+            std::cout << "  [" << cid << "] " << c->question.substr(0, 40) << ":" << c->answer.substr(0, 40) <<" (激活:" << (c->active ? "是" : "否") << ")" << std::endl;
         }
     }
 }
@@ -81,7 +81,7 @@ void runQuiz(CardManager& cardMgr, StatisticsManager& statMgr) {
                 case 3:
                 double percentage;
                 std::cin >> percentage;
-        std::cin.ignore();
+                std::cin.ignore();
                 if(percentage * totalSize / 100 < 1 || percentage > 100) {
                     std::cout << "❌无法设置每组正确的卡片数量" << std::endl;
                     return false;
@@ -206,7 +206,14 @@ void manageLibrary(CardManager& cardMgr) {
             int unitIdx;
             std::cin >> unitIdx;
             std::cin.ignore();
-            if (unitIdx < 0 || unitIdx >= static_cast<int>(cardMgr.getNode(unitIdx).type == TreeNodeType::Unit ? 1 : 0)) {
+            try {
+                cardMgr.getNode(unitIdx);
+            }
+            catch (const std::out_of_range& e) {
+                std::cout << "索引越界。" << std::endl;
+                continue;
+            }
+            if (unitIdx < 0 || cardMgr.getNode(unitIdx).type == TreeNodeType::Folder) {
                 std::cout << "无效索引。" << std::endl;
                 continue;
             }
