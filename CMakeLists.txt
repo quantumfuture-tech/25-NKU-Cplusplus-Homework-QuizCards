@@ -1,18 +1,18 @@
 cmake_minimum_required(VERSION 3.16)
 project(FlashcardConsole VERSION 1.0.0 LANGUAGES CXX)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 # 第三方库：自动下载 json.hpp
 set(THIRD_PARTY_DIR ${CMAKE_SOURCE_DIR}/third_party)
-file(MAKE_DIRECTORY ${THIRD_PARTY_DIR})
-set(JSON_HEADER ${THIRD_PARTY_DIR}/json.hpp)
+file(MAKE_DIRECTORY ${THIRD_PARTY_DIR}/nlohmann)
+set(JSON_HEADER ${THIRD_PARTY_DIR}/nlohmann/json.hpp)
 if(NOT EXISTS ${JSON_HEADER})
     message(STATUS "正在下载 json.hpp ...")
     file(DOWNLOAD 
-        https://github.com/nlohmann/json/releases/download/v3.11.3/json.hpp
+        https://github.com/nlohmann/json/releases/download/v3.12.0/json.hpp
         ${JSON_HEADER}
         SHOW_PROGRESS
         TIMEOUT 60

@@ -51,6 +51,12 @@ qrc_*.cpp
 *.swp
 *~
 
+# JSON文件
+*.json
+
+# diff文件
+*.diff
+
 # 系统文件
 Thumbs.db
 .DS_Store
