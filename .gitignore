@@ -1,0 +1,106 @@
+# 编译输出目录
+build*/
+build-*/
+*-build/
+*-Build/
+
+# Qt 生成的中间文件
+*.moc
+moc_*.cpp
+moc_*.h
+ui_*.h
+qrc_*.cpp
+*.rcc
+
+# 目标文件和静态/动态库
+*.o
+*.obj
+*.so
+*.so.*
+*.dll
+*.dylib
+*.a
+*.lib
+*.exe
+*.dSYM/
+
+# 可执行文件（常见命名）
+# 如果是 Qt 项目直接生成的可执行文件，建议显式忽略
+# 注意不要忽略源码中的 .exe 资源文件
+[Pp]rojectName
+
+# 临时文件
+*~
+*.swp
+*.autosave
+*.tmp
+*.bak
+*.log
+*.user
+*.user.*
+*.stash
+
+# Qt Creator / QMake 生成文件
+Makefile
+Makefile.*
+*.pro.user
+*.pro.user.*
+*.creator
+*.creator.user
+*.creator.user.*
+*.files
+*.includes
+*.config
+*.pri.user
+qrc_*.cpp
+
+# CMake 构建生成文件
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+CTestTestfile.cmake
+*.cmake
+!CMakeLists.txt
+!*.cmake.in
+CMakeUserPresets.json
+compile_commands.json
+
+# Visual Studio / 其他 IDE
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+*.sln
+*.suo
+.vs/
+.idea/
+*.kdev4
+
+# Vscode
+.vscode/
+
+# Python 相关（PyQt / PySide）
+__pycache__/
+*.py[cod]
+*.so
+.Python
+env/
+venv/
+venv*/
+*.pyc
+.pytest_cache/
+.tox/
+
+# 第三方库
+third_party/
+
+# 打包目录
+dist/
+build-python/
+*.egg-info/
+build*/
+
+# 文档和资源备份
+*.orig
+*.rej
+.DS_Store
+Thumbs.db
