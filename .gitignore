@@ -1,0 +1,104 @@
+# 构建目录（Qt Creator 默认使用 build- 前缀的文件夹）
+build*/
+build-*/
+*-build/
+_debug/
+_release/
+
+# 第三方库
+third_party/
+
+# 编译中间文件与目标文件
+*.o
+*.obj
+*.exe
+*.dll
+*.so
+*.so.*
+*.dylib
+*.a
+*.lib
+*.dylib
+
+# Qt 元对象编译器（MOC）生成的文件
+moc_*.cpp
+moc_*.h
+moc_*.o
+*.moc
+
+# Qt UI 头文件（从 .ui 生成）
+ui_*.h
+
+# QML 缓存文件（运行时生成，可忽略）
+*.qmlc
+*.jsc
+*.qmlcache
+qmlcache/
+.qmlcache/
+
+# Qt Creator 用户配置与本地设置
+*.user
+*.user.*
+.qtc_clangd/
+.qtproject/
+
+# CMake 生成物（如果使用 CMake）
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+CMakeScripts/
+CTestTestfile.cmake
+*.cmake   # 注意：*.cmake 可能包含有用的模块文件，通常只忽略生成的
+!CMakeLists.txt   # 保留 CMakeLists.txt 本身
+.cmake/
+
+# qmake 生成物（如果使用 qmake）
+Makefile
+.qmake.stash
+*.pro.user
+*.pro.user.*
+moc_predefs.h
+
+# 常见编辑器备份和临时文件
+*~
+*.swp
+*.swo
+*.bak
+*.tmp
+
+# vscode配置
+/.vscode/
+
+# 系统文件
+.DS_Store
+Thumbs.db
+desktop.ini
+ehthumbs.db
+*.db
+
+# 日志文件
+*.log
+
+# 依赖目录（如果项目中嵌入了 Node.js 或其他工具）
+node_modules/
+.pnpm-store/
+
+# 打包输出文件（根据需求开启）
+*.7z
+*.zip
+*.tar
+*.tar.gz
+*.rar
+
+# 测试覆盖率输出
+*.gcda
+*.gcno
+*.gcov
+
+# 调试符号与核心转储
+*.dSYM/
+core.*
+
+# 运行数据存储
+data/
