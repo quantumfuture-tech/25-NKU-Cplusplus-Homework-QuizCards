@@ -1,0 +1,62 @@
+# 构建目录（CMake 常用）
+build/
+cmake-build-*/
+out/
+Debug/
+Release/
+third_party/
+
+# 编译产物
+*.exe
+*.dll
+*.so
+*.dylib
+*.a
+*.lib
+*.o
+*.obj
+*.pdb
+*.ilk
+*.exp
+
+# CMake 生成的文件
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+compile_commands.json
+CTestTestfile.cmake
+*.cmake
+
+# IDE 配置（可选，看个人习惯）
+.vscode/
+.idea/
+*.user
+*.creator.user.*
+*.autosave
+
+# Qt 临时文件
+*.pro.user
+*.pro.user.*
+moc_*.cpp
+moc_*.h
+ui_*.h
+qrc_*.cpp
+*.qmlc
+*.jsc
+
+# 日志与临时文件
+*.log
+*.tmp
+*.swp
+*~
+
+# JSON文件
+*.json
+
+# diff文件
+*.diff
+
+# 系统文件
+Thumbs.db
+.DS_Store
