@@ -1,4 +1,4 @@
-# 抽认卡学习应用V1.0 - QtWidgets
+# 抽认卡学习应用V2.0 - QtWidgets
 
 [![Qt](https://img.shields.io/badge/Qt-6.5+-green.svg)](https://www.qt.io/)
 [![C++](https://img.shields.io/badge/C++-20-blue.svg)](https://isocpp.org/)
