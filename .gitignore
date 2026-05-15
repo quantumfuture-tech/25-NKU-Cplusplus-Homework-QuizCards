@@ -1,62 +1,106 @@
-# 构建目录（CMake 常用）
-build/
-cmake-build-*/
-out/
-Debug/
-Release/
-third_party/
+# 编译输出目录
+build*/
+build-*/
+*-build/
+*-Build/
 
-# 编译产物
-*.exe
-*.dll
-*.so
-*.dylib
-*.a
-*.lib
-*.o
-*.obj
-*.pdb
-*.ilk
-*.exp
-
-# CMake 生成的文件
-CMakeCache.txt
-CMakeFiles/
-cmake_install.cmake
-Makefile
-compile_commands.json
-CTestTestfile.cmake
-*.cmake
-
-# IDE 配置（可选，看个人习惯）
-.vscode/
-.idea/
-*.user
-*.creator.user.*
-*.autosave
-
-# Qt 临时文件
-*.pro.user
-*.pro.user.*
+# Qt 生成的中间文件
+*.moc
 moc_*.cpp
 moc_*.h
 ui_*.h
 qrc_*.cpp
-*.qmlc
-*.jsc
+*.rcc
 
-# 日志与临时文件
-*.log
-*.tmp
-*.swp
+# 目标文件和静态/动态库
+*.o
+*.obj
+*.so
+*.so.*
+*.dll
+*.dylib
+*.a
+*.lib
+*.exe
+*.dSYM/
+
+# 可执行文件（常见命名）
+# 如果是 Qt 项目直接生成的可执行文件，建议显式忽略
+# 注意不要忽略源码中的 .exe 资源文件
+[Pp]rojectName
+
+# 临时文件
 *~
+*.swp
+*.autosave
+*.tmp
+*.bak
+*.log
+*.user
+*.user.*
+*.stash
 
-# JSON文件
-*.json
+# Qt Creator / QMake 生成文件
+Makefile
+Makefile.*
+*.pro.user
+*.pro.user.*
+*.creator
+*.creator.user
+*.creator.user.*
+*.files
+*.includes
+*.config
+*.pri.user
+qrc_*.cpp
 
-# diff文件
-*.diff
+# CMake 构建生成文件
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+CTestTestfile.cmake
+*.cmake
+!CMakeLists.txt
+!*.cmake.in
+CMakeUserPresets.json
+compile_commands.json
 
-# 系统文件
-Thumbs.db
+# Visual Studio / 其他 IDE
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+*.sln
+*.suo
+.vs/
+.idea/
+*.kdev4
+
+# Vscode
+.vscode/
+
+# Python 相关（PyQt / PySide）
+__pycache__/
+*.py[cod]
+*.so
+.Python
+env/
+venv/
+venv*/
+*.pyc
+.pytest_cache/
+.tox/
+
+# 第三方库
+third_party/
+
+# 打包目录
+dist/
+build-python/
+*.egg-info/
+build*/
+
+# 文档和资源备份
+*.orig
+*.rej
 .DS_Store
+Thumbs.db
